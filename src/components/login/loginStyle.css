@@ -1,0 +1,23 @@
+body{
+    background-color: #E5E5E5;
+}
+.login-form{
+    margin-top: 9.5%;
+}
+.card-body{
+    width: 85%;
+}
+.forgot-password{
+    color: #009FBF;
+}
+.card{
+    background-color: #F7F7F7
+}
+.login-btn{
+    background-color: #1B3F7D;
+    color: white;
+}
+.login-btn:hover{
+    background-color: #00527D;
+    color: white;
+}

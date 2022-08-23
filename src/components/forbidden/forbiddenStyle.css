@@ -1,0 +1,36 @@
+body {
+    background-color: #E5E5E5;
+}
+.forbidden-adjust{
+    margin-top: -45%;
+    margin-left: 13%;
+}
+h2 {
+    color: #000;
+    padding: 3%;
+    text-align: center;
+    font-size: 2em;
+}
+
+.forbidden i {
+    color: red;
+    text-align: center;
+}
+
+.forbidden {
+    margin: auto;
+    text-align: center;
+    width: 50%;
+}
+
+.logo{
+    color: red;
+    padding: 3%;
+    text-align: center;
+    font-size: 50px;
+}
+
+h4 {
+    text-align: center;
+    color: #000;
+}

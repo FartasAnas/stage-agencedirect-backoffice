@@ -3,7 +3,6 @@ import { setCredentials , logOut } from '../../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
     baseUrl:'http://localhost:8090/api',
-    mode:'cors',
     credentials: 'include',
     prepareHeaders: (headers , { getState }) => {
         const token = getState().auth.token

@@ -1,0 +1,53 @@
+.add-form{
+    margin-top: -40%;
+    margin-left: 13%;
+}
+.sidebar-addAgent{
+    float: left;
+}
+body{
+    background-color: #E5E5E5;
+}
+.card-body{
+    width: 85%;
+}
+.loading{
+    height: 100px;
+    width: 100px;
+}
+.card{
+    width: 25%;
+    padding: 25px 4px 4px 4px;
+}
+.add-nameInput{
+    margin-right: 5px;
+}
+.add-btn{
+    background-color: #69B4BA;
+    color: white;
+}
+.add-btn:hover{
+    background-color: #00527D;
+    color: white;
+}
+.spacing{
+    padding-top: 50px;
+}
+.brand_logo_container {
+    position: absolute;
+    height: 170px;
+    width: 170px;
+    top: -85px;
+    border-radius: 50%;
+    border: 2px solid #E5E5E5;
+    background: #E5E5E5;
+    padding: 3px;
+    color: #69B4BA;
+}
+.brand_logo {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: white4;
+    border: 5px solid white;
+}
