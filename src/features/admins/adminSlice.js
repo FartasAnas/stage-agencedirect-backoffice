@@ -3,8 +3,8 @@ import AdminServices from "../../services/AdminServices";
 
 export const addAgent = createAsyncThunk(
     "admin/addAgent",
-    async ({nom,prenom,username,password}) => {
-        const response = await AdminServices.addAgent({nom,prenom,username,password});
+    async ({nom,prenom,username,password,roles,agence}) => {
+        const response = await AdminServices.addAgent({nom,prenom,username,password,roles,agence});
         return response.data;
     }
 );
@@ -15,20 +15,7 @@ export const countAgents = createAsyncThunk(
         return response.data;
     }
 );
-export const countClients= createAsyncThunk(
-    "admin/countClients",
-    async () => {
-        const response = await AdminServices.countClients();
-        return response.data;
-    }
-);
-export const countDemandes = createAsyncThunk(
-    "admin/demande",
-    async () => {
-        const response = await AdminServices.countDemandes();
-        return response.data;
-    }
-);
+
 export const deleteAgent = createAsyncThunk(
     "admin/deleteAgent",
     async (id) => {
@@ -43,6 +30,45 @@ export const getAllAgents = createAsyncThunk(
         return response.data;
     }
 );
+export const getAllAgence = createAsyncThunk(
+    "admin/getAllAgence",
+    async () => {
+        const response = await AdminServices.getAllAgence();
+        return response.data;
+    }
+);
+export const deleteAgence=createAsyncThunk(
+    "admin/deleteAgence",
+    async (id) => {
+        const response = await AdminServices.deleteAgence(id);
+        return response.data;
+    }
+);
+export const countAgence = createAsyncThunk(
+    "admin/countAgence",
+    async () => {
+        const response = await AdminServices.countAgence();
+        return response.data;
+    }
+);
+export const getAllRoles = createAsyncThunk(
+    "admin/getAllRoles",
+    async () => {
+        const response = await AdminServices.getAllRoles();
+        return response.data;
+    }
+);
+export const addAgence = createAsyncThunk(
+    "admin/addAgent",
+    async ({nom,ville,adresse}) => {
+        const response = await AdminServices.addAgence({nom,ville,adresse});
+        return response.data;
+    }
+);
+
+
+
+
 
 export const adminSlice = createSlice({
     name:'admin',

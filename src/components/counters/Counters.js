@@ -1,59 +1,67 @@
 import React, {useState , useEffect} from 'react'
 import './countersStyle.css'
-import { useDispatch } from 'react-redux';
-import { countAgents, countClients, countDemandes } from '../../features/admins/adminSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { countAgence, countAgents } from '../../features/admins/adminSlice';
+import { countClients, countDemandes } from '../../features/agents/agentSlice';
+import { Link } from 'react-router-dom';
+import { selectCurrentRoles } from '../../features/auth/authSlice';
 
 export default function Counters() {
     const dispatch = useDispatch();
+    const roles=useSelector(selectCurrentRoles)
     
-    const [AgentNumber , setAgentNumber] = useState(0);
-    const [ClientNumber , setClientNumber] = useState(0);
+    const [agentsNumber , setAgentNumber] = useState(0);
+    const [clientsNumber , setClientNumber] = useState(0);
     const [demandsNumber , setDemandsNumber] = useState(0);
+    const [agencesNumber , setAgenceNumber] = useState(0);
 
-    async function getAgentNumber() {
-        let number = await dispatch(countAgents()).unwrap();
-        setAgentNumber(number);
+    async function getCountNumbers() {
+        let agentNumber = await dispatch(countAgents()).unwrap();
+        let clientNumber = await dispatch(countClients()).unwrap();
+        let demandeNumber = await dispatch(countDemandes()).unwrap();
+        let agenceNumber = await dispatch(countAgence()).unwrap();
+        setAgentNumber(agentNumber);
+        setClientNumber(clientNumber);
+        setDemandsNumber(demandeNumber);
+        setAgenceNumber(agenceNumber);
     }
-    async function getClientNumber() {
-        let number = await dispatch(countClients()).unwrap();
-        setClientNumber(number);
-    }
-    async function getDemandsNumber() {
-        let number = await dispatch(countDemandes()).unwrap();
-        setDemandsNumber(number);
-    }
-
-
     useEffect(() => {
-        getAgentNumber();
-        getClientNumber();
-        getDemandsNumber();
-    },[]); 
-    return (
-        <div className="container w-100">
-            <div className="row text-center">
-                <div className="col">
-                    <div className="counter shadow-sm ">
-                        <i className="fa fa-users fa-2x"></i>
-                        <h2>{ClientNumber}</h2>
-                        <p className="count-text text-uppercase">Clients</p>
-                    </div>
+        getCountNumbers();
+    },[]);
+    const content=roles.some(role => role.authority === 'ROLE_ADMIN') ?(
+        <div className="row text-center">
+            <Link to="/agentList" style={{ textDecoration: 'none' }} className="col link-dark">
+                <div className="counter shadow-sm" >
+                    <i className="fa fa-solid fa-user-tie fa-2x"></i>
+                    <h2>{agentsNumber}</h2>
+                    <p className="count-text text-uppercase">Agents</p>
                 </div>
-                <div className="col">
-                    <div className="counter shadow-sm">
-                        <i className="fa fa-solid fa-user-tie fa-2x"></i>
-                        <h2>{AgentNumber}</h2>
-                        <p className="count-text text-uppercase">Agents</p>
-                    </div>
+            </Link>
+            <Link to="/agenceList" style={{ textDecoration: 'none' }} className="col link-dark">
+                <div className="counter shadow-sm">
+                    <i class="fa fa-shop fa-2x"></i>
+                    <h2>{agencesNumber}</h2>
+                    <p className="count-text text-uppercase">Agences</p>
                 </div>
-                <div className="col">
-                    <div className="counter shadow-sm">
-                        <i className="fa fa-clipboard fa-2x"></i>
-                        <h2>{demandsNumber}</h2>
-                        <p className="count-text text-uppercase">Demandes</p>
-                    </div>
+            </Link>
+        </div>
+    ):(
+        <div className="row text-center">
+            <Link to="/clientList" style={{ textDecoration: 'none' }} className="col link-dark">
+                <div className="counter shadow-sm " >
+                    <i className="fa fa-users fa-2x"></i>
+                    <h2>{clientsNumber}</h2>
+                    <p className="count-text text-uppercase">Clients</p>
                 </div>
-            </div>
+            </Link>
+            <Link to="/clientList" style={{ textDecoration: 'none' }} className="col link-dark">
+                <div className="counter shadow-sm">
+                    <i className="fa fa-clipboard fa-2x"></i>
+                    <h2>{demandsNumber}</h2>
+                    <p className="count-text text-uppercase">Demandes</p>
+                </div>
+            </Link>
         </div>
     )
+    return content
 }

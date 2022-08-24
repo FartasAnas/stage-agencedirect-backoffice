@@ -1,0 +1,21 @@
+table{
+    border-collapse:separate;
+    border-radius: 10px;
+}
+tr{
+    border: hidden;
+}
+tbody{
+    border: hidden;
+}
+th{
+    border:1px solid #dddddd ;
+    border-radius: 5px;
+}
+td{
+    border:1px solid #dddddd ;
+    border-radius: 5px;
+}
+.alert-icon{
+    margin-bottom: 15px;
+}

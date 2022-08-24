@@ -1,30 +1,47 @@
-import axios from "axios";
 import http from "../app/http-common";
 const addAgent = (data) => {
+    console.log(data)
     return http.post("/agent/add", data);
+};
+const addAgence = (data) => {
+    console.log(data)
+    return http.post("/agence/add", data);
 };
 const countAgents = () => {
     return http.get("/agent/count");
 };
-const countClients = () => {
-    return http.get("/client/count");
-}
-const countDemandes = () => {
-    return http.get("/client/demande");
-}
+
 const deleteAgent = (id) => {
     return http.delete(`/agent/delete/${id}`);
 }
 const getAllAgents =()=>{
     return http.get("/agent/all")
 }
+const getAllAgence =()=>{
+    return http.get("/agence/all")
+}
+const deleteAgence=(id)=>{
+    return http.delete(`/agence/delete/${id}`)
+}
+const countAgence = () => {
+    return http.get("/agence/count");
+};
+const getAllRoles = () => {
+    return http.get("/role/all");
+};
+
+
+
 
 const AdminServices = {
     addAgent,
     countAgents,
-    countClients,
-    countDemandes,
     deleteAgent,
     getAllAgents,
+    getAllAgence,
+    deleteAgence,
+    countAgence,
+    getAllRoles,
+    addAgence
 };
 export default AdminServices;

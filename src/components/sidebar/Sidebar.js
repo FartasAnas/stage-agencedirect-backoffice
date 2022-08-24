@@ -7,7 +7,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Logo from '../../images/textLessLogo.png'
 import AccLogo from '../../images/sideBarAccLogo.png'
 import AgentIcon from '../../images/agentIcon.png'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser,selectCurrentRoles, logOut } from '../../features/auth/authSlice';
 
@@ -26,16 +26,59 @@ export default function Sidebar() {
     const roles=useSelector(selectCurrentRoles)
     const currentUser=useSelector(selectCurrentUser)
     const [activeChoise, setActiveChoise] = useState("");
-    const navigate=useNavigate()
     const handleActiveChoise = (e) => {
         setActiveChoise(e.target.name);
         if(e.target.name==="Logout"){
             const logout=dispatch(logOut());
         }
     }
+    const client=roles.some(role => role.authority === 'ROLE_ADMIN')?(<></>):
+    (
+        <>
+            <a href="" className={activeChoise==="Clients" ? "nav-link active" : "nav-link link-dark choice"} name="Clients" 
+            onClick={handleActiveChoise} data-bs-toggle="collapse" data-bs-target="#client-collapse" aria-expanded="false">
+            <i className="bi bi-person"></i>
+            <svg className="bi me-2" width="5" height="16"></svg>
+            Clients 
+            </a>
+            <div className="collapse ml-15" id="client-collapse">
+                <ul className="btn-toggle-nav list-unstyled fw-normal pb-1">
+                    <li>
+                        <Link to="/clientList" className="link-dark rounded w-25">
+                            <i className="bi bi-list-ul"></i>
+                            <svg className="bi me-2" width="5" height="16"></svg>
+                            List
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+        </>
+    )
+    const demande=roles.some(role => role.authority === 'ROLE_ADMIN')?(<></>):
+    (
+        <>
+            <a href="" className={activeChoise==="Demandes" ? "nav-link active" : "nav-link link-dark choice"} name="Demandes" 
+            onClick={handleActiveChoise} data-bs-toggle="collapse" data-bs-target="#demande-collapse" aria-expanded="false">
+            <i className="bi bi-person"></i>
+            <svg className="bi me-2" width="5" height="16"></svg>
+            Demandes 
+            </a>
+            <div className="collapse ml-15" id="demande-collapse">
+                <ul className="btn-toggle-nav list-unstyled fw-normal pb-1">
+                    <li>
+                        <Link to="/demandeList" className="link-dark rounded w-25">
+                            <i className="bi bi-list-ul"></i>
+                            <svg className="bi me-2" width="5" height="16"></svg>
+                            List
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+        </>
+    )
     const Agents = roles.some(role => role.authority === 'ROLE_ADMIN')?(
         <div>
-            <a href="#" className={activeChoise==="Agents" ? "nav-link active" : "nav-link link-dark choice"} name="Agents" 
+            <a href="" className={activeChoise==="Agents" ? "nav-link active" : "nav-link link-dark choice"} name="Agents" 
             onClick={handleActiveChoise} data-bs-toggle="collapse" data-bs-target="#agent-collapse" aria-expanded="false">
             <img src={AgentIcon} alt="logo-img" className="sidebar-agent-icon"/>
             <svg className="bi me-2" width="5" height="16"></svg>
@@ -52,6 +95,34 @@ export default function Sidebar() {
                     </li>
                     <li>
                         <Link to="/addAgent" className="link-dark rounded">
+                            <i className="bi bi-plus-lg"></i>
+                            <svg className="bi me-2" width="5" height="16"></svg>
+                            Add
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    ):(<div></div>)
+    const Agence = roles.some(role => role.authority === 'ROLE_ADMIN')?(
+        <div>
+            <a href="" className={activeChoise==="Agence" ? "nav-link active" : "nav-link link-dark choice"} name="Agence" 
+            onClick={handleActiveChoise} data-bs-toggle="collapse" data-bs-target="#agence-collapse" aria-expanded="false">
+            <i className="bi bi-shop"></i>
+            <svg className="bi me-2" width="5" height="16"></svg>
+            Agence
+            </a>
+            <div className="collapse ml-15" id="agence-collapse">
+                <ul className="btn-toggle-nav list-unstyled fw-normal pb-1">
+                    <li>
+                        <Link to="/agenceList" className="link-dark rounded">
+                            <i className="bi bi-list-ul"></i>
+                            <svg className="bi me-2" width="5" height="16"></svg>
+                            List
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/addAgence" className="link-dark rounded">
                             <i className="bi bi-plus-lg"></i>
                             <svg className="bi me-2" width="5" height="16"></svg>
                             Add
@@ -80,26 +151,16 @@ export default function Sidebar() {
                     </Link>
                 </li>
                 <li>
-                    <a href="" className={activeChoise==="Clients" ? "nav-link active" : "nav-link link-dark choice"} name="Clients" 
-                    onClick={handleActiveChoise} data-bs-toggle="collapse" data-bs-target="#client-collapse" aria-expanded="false">
-                    <i className="bi bi-person"></i>
-                    <svg className="bi me-2" width="5" height="16"></svg>
-                    Clients 
-                    </a>
-                    <div className="collapse ml-15" id="client-collapse">
-                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1">
-                            <li>
-                                <Link to="/clientList" className="link-dark rounded w-25">
-                                    <i className="bi bi-list-ul"></i>
-                                    <svg className="bi me-2" width="5" height="16"></svg>
-                                    List
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+                    {client}
+                </li>
+                <li>
+                    {demande}
                 </li>
                 <li>
                     {Agents}
+                </li>
+                <li>
+                    {Agence}
                 </li>
             </ul>
             <div >

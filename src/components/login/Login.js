@@ -37,11 +37,8 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try{
             const userData= await login({ username , password }).unwrap();
-            let user=username;
-            let token=userData.accessToken;
             dispatch(setCredentials({...userData,username}));
             setUsername('');
             setPassword('');
@@ -71,7 +68,10 @@ const Login = () => {
             <Logo />  
             <hr/>
             <h4 className="card-title text-center mb-4 mt-1">Sign in</h4>
-            <p ref={errRef} className={errMsg ? "text-danger text-center errmsg" : "offscreen"} aria-live="assertive"> {errMsg} </p>
+            <div className={errMsg ? "alert alert-danger p-0 ": "offscreen"}>
+              <p ref={errRef} className={errMsg ? "text-danger text-center errmsg pt-3" : "offscreen"} aria-live="assertive"> {errMsg} </p>
+            </div>
+            
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <div className="input-group">

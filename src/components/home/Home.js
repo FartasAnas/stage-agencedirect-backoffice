@@ -13,7 +13,7 @@ const Home = () => {
     return (
         <div>
             <Sidebar/>
-            <div className="counters">
+            <div className="counters w-75">
                 <Counters/>    
             </div>
         </div>

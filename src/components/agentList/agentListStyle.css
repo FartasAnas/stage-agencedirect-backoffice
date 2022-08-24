@@ -1,5 +1,8 @@
-.dataTable{
+.agent-dataTable{
     background-color: white;
-    margin-top: -48%;
-    margin-left: 20%;
+    margin-top: -50%;
+    margin-left: 21%;
+}
+.addBtn-table{
+    margin-bottom: -46px;
 }

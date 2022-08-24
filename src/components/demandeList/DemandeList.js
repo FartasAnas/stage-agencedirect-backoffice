@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from '../sidebar/Sidebar'
 import { useDispatch } from 'react-redux';
+import { getAllDemandes } from '../../features/agents/agentSlice';
 import DataTable from '../dataTable/DataTable';
-import './clientListStyle.css'
-import { getAllClients } from '../../features/agents/agentSlice';
+import Sidebar from '../sidebar/Sidebar';
 
-export default function ClientList() {
-    const [clients,setClients]=useState([]);
+export default function DemandeList() {
+    const [demandes,setDemandes]=useState([]);
     const dispatch = useDispatch();
     async function fetchData() {
-        const data = await dispatch(getAllClients()).unwrap();
+        const data = await dispatch(getAllDemandes()).unwrap();
         console.table(data)
-        setClients(data.map(item =>{
+        setDemandes(data.map(item =>{
             let container={};
             container=item
             container.agence=item.agence !==null ? item.agence.nom : " "
@@ -22,10 +21,6 @@ export default function ClientList() {
             }else{
                 container.status="Inactive"
             }
-            
-            // container.roles=item.roles.map(role=>{
-            //     return " "+role.name.replace("ROLE_","")
-            // })
             return container
         }))
     }
@@ -56,8 +51,8 @@ export default function ClientList() {
             <Sidebar/>
             <div className='dataTable container rounded shadow p-4 h-100 '>
                 <DataTable 
-                    itemsPerPage={10} itemsPerPageOptions={[10,15,20,25,30]} columns={columns} usersData={clients} 
-                    handleShowUserClick={handleShowUserClick} handleDeleteClick={handleDeleteClick} detailsBtn={true}
+                    itemsPerPage={10} itemsPerPageOptions={[10,15,20,25,30]} columns={columns} usersData={demandes} 
+                    handleShowUserClick={handleShowUserClick} handleDeleteClick={handleDeleteClick}
                     />
             </div>
         </>
