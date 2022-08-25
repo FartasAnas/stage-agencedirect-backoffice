@@ -13,6 +13,8 @@ import EditAgent from "./components/editAgent/EditAgent";
 import AgenceList from "./components/agenceList/AgenceList";
 import AddAgence from "./components/addAgence/AddAgence";
 import DemandeList from "./components/demandeList/DemandeList";
+import AgentDetails from "./components/agentDetails/AgentDetails";
+import ClientDetails from "./components/clientDetails/ClientDetails";
 
 function App() {
   return (
@@ -27,8 +29,8 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["ROLE_ADMIN","ROLE_AGENT"]}/>}>
           <Route path="home" element={<Home  />}/>
           <Route path="clientList" element={<ClientList  />}/>
-          <Route path="editAgent" element={<EditAgent  />}/>
           <Route path="demandeList" element={<DemandeList  />}/>
+          <Route path="clientDetails" element={<ClientDetails  />}/>
         </Route>
         <Route element={<RequireAuth allowedRoles={["ROLE_ADMIN"]}/>}>
           <Route path="adminPanel" element={<AdminPanel  />}/>
@@ -36,6 +38,9 @@ function App() {
           <Route path="agentList" element={<AgentList  />}/>
           <Route path="agenceList" element={<AgenceList  />}/>
           <Route path="addAgence" element={<AddAgence  />}/>
+          <Route path="agentDetails" element={<AgentDetails  />}/>
+          <Route path="editAgent" element={<EditAgent  />}/>
+
         </Route>
       </Route>
     </Routes>

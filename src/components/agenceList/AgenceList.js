@@ -18,6 +18,7 @@ export default function AgenceList() {
         fetchData();
     }, [deleted])
     const columns = [
+        { key: 'codeAgence',label:'Code Agence',_style: { width: '20%' },_props: { className: 'fw-semibold' }},
         { key: 'nom',_style: { width: '20%' },_props: { className: 'fw-semibold' }},
         { key: 'ville',_style: { width: '20%' },_props: { className: 'fw-semibold' }},
         { key: 'adresse',_style: { width: '30%' },_props: { className: 'fw-semibold' }},

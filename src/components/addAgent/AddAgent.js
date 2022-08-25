@@ -1,6 +1,6 @@
 import React , {useRef , useState , useEffect } from 'react'
 import { useDispatch } from 'react-redux/es/exports'
-import { addAgent, getAllAgence, getAllRoles } from '../../features/admins/adminSlice'
+import { addAgent, getAllRoles } from '../../features/admins/adminSlice'
 import '@fortawesome/fontawesome-free/js/all.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
@@ -14,11 +14,9 @@ const AddAgent = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [roles, setRoles] = useState([]);
-    const [agence, setAgence] = useState({});
     const [errMsg, setErrMsg] = useState('');
     const [sccMsg, setSccMsg] = useState('');
     const [rolesList, setRolesList] = useState([]);
-    const [agenceList, setAgenceList] = useState([]);
     const dispatch = useDispatch();
 
     /*useEffect(() => {
@@ -27,31 +25,30 @@ const AddAgent = () => {
     useEffect(() => {
         setErrMsg('');
     } , [nom, prenom, username, password])
-
-    async function fetchData() {
-        const dataRole = await dispatch(getAllRoles()).unwrap();
-        let dataRolefilter=dataRole.filter(role=>{
-            return role.name !== "ROLE_CLIENT"
-        })
-        setRolesList(dataRolefilter.map(role=>{
-            role.name=role.name.replace("ROLE_","")
-            return role
-        }))
-        setAgenceList(await dispatch(getAllAgence()).unwrap());
-    }
     useEffect(()=>{
+        async function fetchData() {
+            const dataRole = await dispatch(getAllRoles()).unwrap();
+            let dataRolefilter=dataRole.filter(role=>{
+                return role.name !== "ROLE_CLIENT"
+            })
+            setRolesList(dataRolefilter.map(role=>{
+                role.name=role.name.replace("ROLE_","")
+                return role
+            }))
+        }
         fetchData();
     }, [])
+    
+    
 
-
-    const handleSubmit = async (e) => {
+    
+    const handleAddAgent = async (e) => {
         e.preventDefault();
         try{
-            const agentdata=await dispatch(addAgent({ nom , prenom , username , password , roles , agence  })).unwrap();
+            await dispatch(addAgent({ nom , prenom , username , password , roles })).unwrap();
             setNom('');
             setPrenom('');
             setRoles(([{"id":""}]))
-            setAgence({"id":""})
             setUsername('');
             setPassword('');
             setSccMsg('Agent Added');
@@ -70,13 +67,13 @@ const AddAgent = () => {
         }
         
     }
-    const handleSelectedAgence=(e) => { setAgence({ "id":e.target.value }) }
     const handleSelectedRole=(e) => { setRoles([{ "id":e.target.value }]) }
-    const handleNomInput = (e) => setNom(e.target.value)
-    const handlePrenomInput = (e) => setPrenom(e.target.value)
-    const handleUsernameInput = (e) => setUsername(e.target.value)
+        const handleNomInput = (e) => setNom(e.target.value)
+        const handlePrenomInput = (e) => setPrenom(e.target.value)
+        const handleUsernameInput = (e) => setUsername(e.target.value)
     const handlePwdInput = (e) => setPassword(e.target.value)
     const handleClick = () => setSccMsg('')
+    const handleSubmit = (e) => e.preventDefault()
     
     return (
         <div >
@@ -95,7 +92,7 @@ const AddAgent = () => {
                     <div className={sccMsg ? "alert alert-success p-0 ": "offscreen"}>
                         <p ref={msgRef} className={sccMsg ? "text-success text-center errmsg pt-3" : "offscreen"} aria-live="assertive"> {sccMsg} </p>
                     </div>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} >
                         <div className="form-group">
                             <div className="input-group">
                                 <input 
@@ -130,15 +127,6 @@ const AddAgent = () => {
                                         return <option key={role.id} value={role.id}>{role.name}</option>
                                     })}
                                 </select>
-                                <select className="form-select rounded-left" onChange={handleSelectedAgence} required>
-                                    <option defaultValue value="">Chose Agence</option>
-                                    {agenceList.map(agence=>{
-                                        return <option key={agence.id} value={agence.id}>{agence.nom}</option>
-                                    })}
-                                </select>
-                                <div className="input-group-prepend rounded-right">
-                                    <span className="input-group-text rounded-right"> <i className="fa fa-shop"></i></span>
-                                </div>
                             </div> 
                         </div>
                         <div className="form-group">
@@ -164,40 +152,46 @@ const AddAgent = () => {
                             </div>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-block add-btn" data-toggle="modal" data-target="#addModal"> Add </button>
+                            <button type="submit" className="btn btn-block add-btn" data-bs-toggle="modal" data-bs-target="#addModal"> Add </button>
                         </div>
                         </form>
+
+                        <div className="modal fade" id="addModal" tabIndex="-1" aria-labelledby="AddModalLabel" aria-hidden="true">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="deleteModalLabel">Add this Agent</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <div className="alert alert-primary">
+                                            <span className="">
+                                                <p className='d-flex justify-content-center fs-5 m-0'>Are you sure you want to add this Agent?</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleAddAgent}>
+                                            <i className="fa fa-square-check"></i>
+                                            <svg className="bi me-2" width="0" height="0"></svg>
+                                            Yes
+                                        </button>
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                            <i className="fa fa-square-xmark"></i>
+                                            <svg className="bi me-2" width="0" height="0"></svg>
+                                            No
+                                        </button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </article>
+                    
                 </div>
             </div>
 
-            <div className="modal fade" id="addModal" tabIndex="-1" aria-labelledby="AddModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="deleteModalLabel">Add this Agent</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <div className="alert alert-success fs-5">
-                                <span className="d-flex justify-content-center">Are you sure you want to add this Agent?</span>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                <i className="fa fa-square-xmark"></i>
-                                <svg className="bi me-2" width="0" height="0"></svg>
-                                No
-                            </button>
-                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" >
-                                <i className="fa fa-square-check"></i>
-                                <svg className="bi me-2" width="0" height="0"></svg>
-                                Yes
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             
         </div>
     )

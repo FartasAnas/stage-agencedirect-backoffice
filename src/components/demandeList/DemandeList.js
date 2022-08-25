@@ -28,15 +28,14 @@ export default function DemandeList() {
         fetchData();
     }, [])
     const columns = [
-        { key: 'cin',_props: { className: 'fw-semibold' }},
-        { key: 'type',_props: { className: 'fw-semibold' }},
+        { key: 'rib',label: 'RIB',_props: { className: 'fw-semibold' }},
+        { key: 'cin',label: 'CIN',_props: { className: 'fw-semibold' }},
+        { key: 'type',sorter: false,_props: { className: 'fw-semibold' }},
         { key: 'nom',_props: { className: 'fw-semibold' }},
         { key: 'prenom',_props: { className: 'fw-semibold' }},
-        { key: 'email',_props: { className: 'fw-semibold' }},
-        { key: 'telephone',_props: { className: 'fw-semibold' }},
+        { key: 'email',sorter: false,_props: { className: 'fw-semibold' }},
         { key: 'dateNaissance',_props: { className: 'fw-semibold' }},
-        { key: 'agence',_props: { className: 'fw-semibold' }},
-        { key: 'pack',_props: { className: 'fw-semibold' }},
+        { key: 'agence',sorter: false,_props: { className: 'fw-semibold' }},
         { key: 'status',sorter: false,_props: { className: 'fw-semibold' }},  
         { key: 'show_details',label: '',_style: { width: '1%' },filter: false,sorter: false,_props: {className: 'fw-semibold' },},
     ]

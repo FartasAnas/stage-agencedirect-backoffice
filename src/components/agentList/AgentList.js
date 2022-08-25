@@ -43,15 +43,15 @@ export default function AgentList() {
         const res=await dispatch(deleteAgent(id)).unwrap();
         setDeleted(deleted+1);
     }
-    const handleShowUserClick = (id,agent) => {
-        navigate("/editAgent",{ replace: true, state: {id,agent} })
+    const handleShowUserClick = (agent) => {
+        navigate("/agentDetails",{ state: {agent} })
     }
     return (
         <>
             <Sidebar/>
             <div className='agent-dataTable container rounded shadow p-4  h-100 w-75 text-capitalize'>
                 <div className='addBtn-table d-flex justify-content-end'>
-                    <Link to='/addAgent' class=" btn btn-outline-primary">Add Agent</Link>
+                    <Link to='/addAgent' className=" btn btn-outline-primary">Add Agent</Link>
                 </div>
                 <DataTable 
                     itemsPerPage={10} itemsPerPageOptions={[10,15,20,25,30]} columns={columns} usersData={agents} 

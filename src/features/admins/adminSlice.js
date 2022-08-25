@@ -3,8 +3,15 @@ import AdminServices from "../../services/AdminServices";
 
 export const addAgent = createAsyncThunk(
     "admin/addAgent",
-    async ({nom,prenom,username,password,roles,agence}) => {
-        const response = await AdminServices.addAgent({nom,prenom,username,password,roles,agence});
+    async ({nom,prenom,username,password,roles}) => {
+        const response = await AdminServices.addAgent({nom,prenom,username,password,roles});
+        return response.data;
+    }
+);
+export const editAgent = createAsyncThunk(
+    "admin/editAgent",
+    async ({id,nom,prenom,username}) => {
+        const response = await AdminServices.editAgent({id,nom,prenom,username});
         return response.data;
     }
 );

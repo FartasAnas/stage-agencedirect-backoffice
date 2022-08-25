@@ -3,6 +3,9 @@ const addAgent = (data) => {
     console.log(data)
     return http.post("/agent/add", data);
 };
+const editAgent = (data) => {
+    return http.put(`/agent/update/${data.id}`, data);
+};
 const addAgence = (data) => {
     console.log(data)
     return http.post("/agence/add", data);
@@ -42,6 +45,7 @@ const AdminServices = {
     deleteAgence,
     countAgence,
     getAllRoles,
-    addAgence
+    addAgence,
+    editAgent
 };
 export default AdminServices;

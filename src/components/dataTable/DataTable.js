@@ -78,7 +78,7 @@ export default function DataTable(props) {
                                 <svg className="bi me-2" width="0" height="0"></svg> 
                                 {
                                     props.detailsBtn===true ? (
-                                        <CButton size="sm" color="primary" onClick={() => {props.handleShowUserClick(item.id,item)}}>
+                                        <CButton size="sm" color="primary" onClick={() => {props.handleShowUserClick(item)}}>
                                             Details
                                         </CButton>
                                     ):(null)
