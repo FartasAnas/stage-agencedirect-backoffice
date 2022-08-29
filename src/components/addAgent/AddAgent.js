@@ -13,10 +13,18 @@ const AddAgent = () => {
     const [prenom, setPrenom] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordError, setPasswordErr] = useState("");
+    const [confirmPasswordError, setConfirmPasswordError] = useState("");
     const [roles, setRoles] = useState([]);
     const [errMsg, setErrMsg] = useState('');
     const [sccMsg, setSccMsg] = useState('');
     const [rolesList, setRolesList] = useState([]);
+    const [addBtn, setAddBtn] = useState(
+        <div className="form-group">
+            <button type="submit" className="btn btn-block btn-secondary" data-bs-toggle="modal" data-bs-target="#addModal" disabled> Add </button>
+        </div>
+    );
     const dispatch = useDispatch();
 
     /*useEffect(() => {
@@ -24,7 +32,7 @@ const AddAgent = () => {
     } , [])*/
     useEffect(() => {
         setErrMsg('');
-    } , [nom, prenom, username, password])
+    } , [nom, prenom, username, password , roles , confirmPassword])
     useEffect(()=>{
         async function fetchData() {
             const dataRole = await dispatch(getAllRoles()).unwrap();
@@ -38,9 +46,59 @@ const AddAgent = () => {
         }
         fetchData();
     }, [])
-    
-    
+    const handleValidation= (evnt)=>{
+        console.log(evnt);
+        const passwordInputValue = evnt.target.value.trim();
+        const passwordInputFieldName = evnt.target.name;
+            //for password 
+        if(passwordInputFieldName==='password'){
+            const uppercaseRegExp   = /(?=.*?[A-Z])/;
+            const lowercaseRegExp   = /(?=.*?[a-z])/;
+            const digitsRegExp      = /(?=.*?[0-9])/;
+            const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
+            const minLengthRegExp   = /.{8,}/;
+            const passwordLength =      passwordInputValue.length;
+            const uppercasePassword =   uppercaseRegExp.test(passwordInputValue);
+            const lowercasePassword =   lowercaseRegExp.test(passwordInputValue);
+            const digitsPassword =      digitsRegExp.test(passwordInputValue);
+            const specialCharPassword = specialCharRegExp.test(passwordInputValue);
+            const minLengthPassword =   minLengthRegExp.test(passwordInputValue);
+            let passworderrMsg ="";
+            if(passwordLength===0){
+                console.log("Password is empty")
+                passworderrMsg="Password is empty";
+            }else if(!uppercasePassword){
+                passworderrMsg="At least one Uppercase";
+            }else if(!lowercasePassword){
+                passworderrMsg="At least one Lowercase";
+            }else if(!digitsPassword){
+                passworderrMsg="At least one digit";
+            }else if(!specialCharPassword){
+                passworderrMsg="At least one Special Characters";
+            }else if(!minLengthPassword){
+                passworderrMsg="At least minumum 8 characters";
+            }else{
+                passworderrMsg="";
+            }
+            setPasswordErr(passworderrMsg);
+        }
+        // for confirm password
+        if(passwordInputFieldName=== "confirmPassword" || (passwordInputFieldName==="password" && confirmPassword.length>0) ){
 
+            if(confirmPassword!==password){
+                setConfirmPasswordError("Confirm password is not matched");
+            }
+            else {
+                setConfirmPasswordError("");
+                console.log('password correct')
+                setAddBtn(
+                    <div className="form-group">
+                        <button type="submit" className="btn btn-block add-btn" data-bs-toggle="modal" data-bs-target="#addModal"> Add </button>
+                    </div>
+                )
+            }
+        }
+    }
     
     const handleAddAgent = async (e) => {
         e.preventDefault();
@@ -51,6 +109,7 @@ const AddAgent = () => {
             setRoles(([{"id":""}]))
             setUsername('');
             setPassword('');
+            setConfirmPassword('')
             setSccMsg('Agent Added');
             msgRef.current.focus();
         }catch(err){
@@ -67,16 +126,17 @@ const AddAgent = () => {
         }
         
     }
-    const handleSelectedRole=(e) => { setRoles([{ "id":e.target.value }]) }
-        const handleNomInput = (e) => setNom(e.target.value)
-        const handlePrenomInput = (e) => setPrenom(e.target.value)
-        const handleUsernameInput = (e) => setUsername(e.target.value)
+    const handleSelectedRole=(e) => { setRoles([{ "id":e.target.value }])}
+    const handleNomInput = (e) => setNom(e.target.value)
+    const handlePrenomInput = (e) => setPrenom(e.target.value)
+    const handleUsernameInput = (e) => setUsername(e.target.value)
     const handlePwdInput = (e) => setPassword(e.target.value)
+    const handleConfirmPwdInput = (e) => setConfirmPassword(e.target.value)
     const handleClick = () => setSccMsg('')
     const handleSubmit = (e) => e.preventDefault()
     
     return (
-        <div >
+        <div className='addAgent'>
             <Sidebar/>
             <div className="add-form d-flex justify-content-center">
                 <div className="card d-flex row align-items-center Regular shadow #fff">
@@ -121,8 +181,8 @@ const AddAgent = () => {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"> <i className="fa fa-user-gear"></i> </span>
                                 </div>
-                                <select className="form-select add-nameInput rounded-right" onChange={handleSelectedRole} required>
-                                    <option defaultValue value="">Chose Role</option>
+                                <select className="form-select add-nameInput rounded-right" onChange={handleSelectedRole} name="rolechosen" id="rolechosen" required>
+                                    <option defaultValue value="" >Chose Role</option>
                                     {rolesList.map(role=>{
                                         return <option key={role.id} value={role.id}>{role.name}</option>
                                     })}
@@ -135,25 +195,25 @@ const AddAgent = () => {
                                     <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
                                 </div>
                                 <input 
-                                    className="form-control" placeholder="Password" type="password"
-                                    onChange={handlePwdInput} value={password} onClick={handleClick} required
+                                    className="form-control" placeholder="Password" type="password" name="password"
+                                    onKeyUp={handleValidation} onChange={handlePwdInput} value={password} onClick={handleClick} required 
                                 />
                             </div>
+                            <p className="text-danger">{passwordError}</p>
                         </div>
                         <div className="form-group">
                             <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
-                            </div>
-                            <input 
-                                className="form-control" placeholder="Confirm Password" type="password"
-                                onClick={handleClick}
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
+                                </div>
+                                <input 
+                                    className="form-control" placeholder="Confirm Password" type="password" name="confirmPassword"
+                                    onClick={handleClick} onChange={handleConfirmPwdInput} onKeyUp={handleValidation} value={confirmPassword}  
                                 />
                             </div>
+                            <p className="text-danger">{confirmPasswordError}</p>
                         </div>
-                        <div className="form-group">
-                            <button type="submit" className="btn btn-block add-btn" data-bs-toggle="modal" data-bs-target="#addModal"> Add </button>
-                        </div>
+                        {addBtn}
                         </form>
 
                         <div className="modal fade" id="addModal" tabIndex="-1" aria-labelledby="AddModalLabel" aria-hidden="true">

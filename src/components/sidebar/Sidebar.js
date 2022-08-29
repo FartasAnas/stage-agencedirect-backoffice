@@ -134,8 +134,9 @@ export default function Sidebar() {
     ):(<div></div>)
 
     return (
+        <div className='sidebare-page'>
         <div className="d-flex flex-column flex-shrink-0 p-3 bg-light side-bar shadow-lg sticky-top" >
-            <Link to="/panel" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <Link to="/home" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
             <img src={Logo} alt="logo-img" className="panel-logo"/>
             <svg className="bi me-2" width="5" height="32"></svg>
             <span className="fs-4"><strong>{roles.some(role => role.authority === 'ROLE_ADMIN')? "ADMIN PANEL" : "AGENT PANEL"}</strong></span>
@@ -190,6 +191,7 @@ export default function Sidebar() {
                 <strong className="username-text text-uppercase">{currentUser}</strong>
             </a>
             </div>
+        </div>
         </div>
     )
 }

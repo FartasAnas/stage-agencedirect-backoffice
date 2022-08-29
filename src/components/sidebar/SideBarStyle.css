@@ -1,40 +1,40 @@
-body{
+.sidebare-page body{
     background-color: #E5E5E5;
 }
-.side-bar{
+.sidebare-page .side-bar{
     width: 280px;
     height: 100vh;
 }
-.activechoice{
+.sidebare-page .activechoice{
     background-color: #00416F;
 }
 
-li:hover{
+.sidebare-page li:hover{
     border-radius: 5px;
 }
-.choice:hover{
+.sidebare-page .choice:hover{
     margin-left: 5px;
 }
-.panel-logo{
+.sidebare-page .panel-logo{
     height: 60px;
     width: 60px;
 }
-.sidebar-agent-icon{
+.sidebare-page .sidebar-agent-icon{
     height: 13.5px;
     width: 13.5px;
     margin-bottom: 5.5px;
 }
-.hello-text{
+.sidebare-page .hello-text{
     padding-top: 15px;
 }
-.username-text{
+.sidebare-page .username-text{
     color: #1B3F7D;
 }
 
 
 
 
-.btn-toggle {
+.sidebare-page .btn-toggle {
     display: inline-flex;
     align-items: center;
     padding: .25rem .5rem;
@@ -43,20 +43,20 @@ li:hover{
     background-color: transparent;
     border: 0;
 }
-.btn-toggle:hover,
-.btn-toggle:focus {
+.sidebare-page .btn-toggle:hover,
+.sidebare-page .btn-toggle:focus {
     color: rgba(0, 0, 0, .85);
     background-color: #d2f4ea;
 }
 
-.btn-toggle-nav a {
+.sidebare-page .btn-toggle-nav a {
     display: inline-flex;
     padding: .1875rem .5rem;
     margin-top: .125rem;
     margin-left: 1.25rem;
     text-decoration: none;
 }
-.btn-toggle-nav a:hover,
-.btn-toggle-nav a:focus {
+.sidebare-page .btn-toggle-nav a:hover,
+.sidebare-page .btn-toggle-nav a:focus {
     background-color: #d2f4ea;
 }

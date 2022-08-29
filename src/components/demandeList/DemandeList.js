@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { getAllDemandes } from '../../features/agents/agentSlice';
+import { useNavigate } from 'react-router-dom';
+import { deleteClient, getAllDemandes } from '../../features/agents/agentSlice';
 import DataTable from '../dataTable/DataTable';
 import Sidebar from '../sidebar/Sidebar';
 
 export default function DemandeList() {
     const [demandes,setDemandes]=useState([]);
     const dispatch = useDispatch();
+    const navigate=useNavigate();
+    const [deleted,setDeleted]=useState(0);
     async function fetchData() {
         const data = await dispatch(getAllDemandes()).unwrap();
         console.table(data)
@@ -26,7 +29,7 @@ export default function DemandeList() {
     }
     useEffect(()=>{
         fetchData();
-    }, [])
+    }, [deleted])
     const columns = [
         { key: 'rib',label: 'RIB',_props: { className: 'fw-semibold' }},
         { key: 'cin',label: 'CIN',_props: { className: 'fw-semibold' }},
@@ -39,11 +42,12 @@ export default function DemandeList() {
         { key: 'status',sorter: false,_props: { className: 'fw-semibold' }},  
         { key: 'show_details',label: '',_style: { width: '1%' },filter: false,sorter: false,_props: {className: 'fw-semibold' },},
     ]
-    const handleDeleteClick = (id) => {
-        console.log("deleted id",id)
+    async function handleDeleteClick(id){
+        const res=await dispatch(deleteClient(id)).unwrap();
+        setDeleted(deleted+1);
     }
-    const handleShowUserClick = (id) => {
-        console.log("Edited id",id)
+    const handleShowUserClick = (client) => {
+        navigate("/clientDetails",{ state: {client} })
     }
     return (
         <>
@@ -51,7 +55,7 @@ export default function DemandeList() {
             <div className='dataTable container rounded shadow p-4 h-100 '>
                 <DataTable 
                     itemsPerPage={10} itemsPerPageOptions={[10,15,20,25,30]} columns={columns} usersData={demandes} 
-                    handleShowUserClick={handleShowUserClick} handleDeleteClick={handleDeleteClick}
+                    handleShowUserClick={handleShowUserClick} handleDeleteClick={handleDeleteClick} detailsBtn={true}
                     />
             </div>
         </>

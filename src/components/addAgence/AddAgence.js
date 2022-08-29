@@ -47,7 +47,7 @@ export default function AddAgence() {
     const handleClick = () => setSccMsg('')
     
     return (
-        <div >
+        <div className='addAgent'>
             <Sidebar/>
             <div className="add-form d-flex justify-content-center">
                 <div className="agence card d-flex row align-items-center Regular shadow #fff">

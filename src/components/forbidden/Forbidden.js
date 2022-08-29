@@ -4,7 +4,7 @@ import './forbiddenStyle.css'
 
 export default function Forbidden() {
   return (
-    <div >
+    <div className='forbidden-page'>
         <Sidebar/>
         <div className='forbidden-adjust'>
             <div className="forbidden ">

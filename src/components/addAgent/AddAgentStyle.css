@@ -1,39 +1,39 @@
-.add-form{
+.addAgent .add-form{
     margin-top: -43%;
     margin-left: 13%;
 }
-.sidebar-addAgent{
+.addAgent .sidebar-addAgent{
     float: left;
 }
-body{
+.addAgent body{
     background-color: #e2e8f0;
 }
-.card-body{
+.addAgent .card-body{
     width: 85%;
 }
-.loading{
+.addAgent .loading{
     height: 100px;
     width: 100px;
 }
-.card{
+.addAgent .card{
     width: 35%;
     padding: 25px 4px 4px 4px;
 }
-.add-nameInput{
+.addAgent .add-nameInput{
     margin-right: 5px;
 }
-.add-btn{
+.addAgent .add-btn{
     background-color: #69B4BA;
     color: white;
 }
-.add-btn:hover{
+.addAgent .add-btn:hover{
     background-color: #00527D;
     color: white;
 }
-.spacing{
+.addAgent .spacing{
     padding-top: 50px;
 }
-.brand_logo_container {
+.addAgent .brand_logo_container {
     position: absolute;
     height: 170px;
     width: 170px;
@@ -44,7 +44,7 @@ body{
     padding: 3px;
     color: #69B4BA;
 }
-.brand_logo {
+.addAgent .brand_logo {
     height: 150px;
     width: 150px;
     border-radius: 50%;

@@ -62,7 +62,7 @@ export default function EditAgent() {
         
     }
     return (
-        <>
+        <div className='editAgent'>
         <Sidebar/>
         <div className="agent-details-info container agent-details">
             <div className="agent-details-info main-body">
@@ -167,6 +167,6 @@ export default function EditAgent() {
                 </div>
             </div>
         </div>
-    </>
+    </div>
     )
 }

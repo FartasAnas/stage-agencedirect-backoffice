@@ -1,23 +1,23 @@
-body{
+.login-page body{
     background-color: #E5E5E5;
 }
-.login-form{
+.login-page .login-form{
     margin-top: 9.5%;
 }
-.card-body{
+.login-page .card-body{
     width: 85%;
 }
-.forgot-password{
+.login-page .forgot-password{
     color: #009FBF;
 }
-.card{
+.login-page .card{
     background-color: #F7F7F7
 }
-.login-btn{
+.login-page .login-btn{
     background-color: #1B3F7D;
     color: white;
 }
-.login-btn:hover{
+.login-page .login-btn:hover{
     background-color: #00527D;
     color: white;
 }

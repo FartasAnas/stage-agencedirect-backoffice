@@ -57,7 +57,7 @@ const Login = () => {
         }
     }
     
-    const handleUserInput = (e) => setUsername(e.target.value)
+    const handleUserInput = (e) => setUsername(e.target.value.toLowerCase())
     const handlePwdInput = (e) => setPassword(e.target.value)
 
     const content = isLoading ? (
@@ -107,8 +107,10 @@ const Login = () => {
     )
 
     return (
-        <div className="login-form  d-flex justify-content-center align-items-center">
-            {content}
+        <div className='login-page'>
+          <div className="login-form  d-flex justify-content-center align-items-center">
+              {content}
+          </div>
         </div>
     )
 }

@@ -29,6 +29,31 @@ export const getAllDemandes= createAsyncThunk(
         return response.data;
     }
 );
+export const activateStudent= createAsyncThunk(
+    "agent/activateClient",
+    async (id) => {
+        const response = await AgentServices.activateStudent(id);
+        return response.data;
+    }
+);
+export const activateNormalUser= createAsyncThunk(
+    "agent/activateClient",
+    async (id) => {
+        const response = await AgentServices.activateNormalUser(id);
+        return response.data;
+    }
+);
+export const deleteClient=createAsyncThunk(
+    "agent/deleteClient",
+    async (id) => {
+        const response = await AgentServices.deleteClient(id);
+        return response.data;
+    }
+);
+
+
+
+
 
 export const adminSlice = createSlice({
     name:'agent',
@@ -39,4 +64,5 @@ export const adminSlice = createSlice({
         },
     }
 });
+
 export default adminSlice.reducer;

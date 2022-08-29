@@ -39,7 +39,7 @@ export default function Counters() {
             </Link>
             <Link to="/agenceList" style={{ textDecoration: 'none' }} className="col link-dark">
                 <div className="counter shadow-sm">
-                    <i class="fa fa-shop fa-2x"></i>
+                    <i className="fa fa-shop fa-2x"></i>
                     <h2>{agencesNumber}</h2>
                     <p className="count-text text-uppercase">Agences</p>
                 </div>
